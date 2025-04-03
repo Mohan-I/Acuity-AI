@@ -7,7 +7,7 @@ import "prismjs/components/prism-python";
 import "prismjs/components/prism-markup";
 import Sidebar from './components/sidebar/Sidebar';
 import Main from './components/main/Main';
-import HelpFAQ from './components/pages/HelpFAQ/helpFAQ';
+import HelpFAQ from './components/pages/HelpFAQ/HelpFAQ';
 import Terms from './components/pages/Terms/Terms';
 import HowToUse from './components/pages/HowToUse/HowToUse';
 import StatusAlert from './components/statusAlert/StatusAlert';
