@@ -1,0 +1,266 @@
+/* For Theme Development Navy Blue Theme or Sky Pink Nebula use the var as per in main.css this is just a scratch work*/
+
+
+:root {
+  --text-color: #333;
+  --text-secondary: #666;
+  --card-bg: #fff;
+  --border-color: #eee;
+  --primary-color: #4a6bff;
+}
+
+.dark-mode {
+  --text-color: #f0f0f0;
+  --text-secondary: #bbb;
+  --card-bg: #2d3748;
+  --border-color: #4a5568;
+  --primary-color: #63b3ed;
+}
+
+.help-faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    color: var(--text-color);
+  }
+  
+  .help-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .help-header h1 {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  .page-icon {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .faq-section {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .faq-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .faq-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  
+  .faq-item h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .faq-item p {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* Activity.css */
+.activity-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    color: var(--text-color);
+  }
+  
+  .activity-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .activity-header h1 {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  .activity-list {
+    display: grid;
+    gap: 1rem;
+  }
+  
+  .activity-item {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+  }
+  
+  .activity-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .query {
+    font-weight: 500;
+    color: var(--text-color);
+    flex: 1;
+  }
+  
+  .date {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-left: 1rem;
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+  }
+  
+  .empty-state p {
+    margin-top: 1rem;
+  }
+  
+  /* Dark mode variables same as HelpFAQ.css */
+
+  /* Settings.css */
+.settings-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    color: var(--text-color);
+  }
+  
+  .settings-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .settings-header h1 {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  .settings-section {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .settings-section h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    color: var(--primary-color);
+  }
+  
+  .setting-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .setting-option:last-child {
+    border-bottom: none;
+  }
+  
+  .setting-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .setting-label span {
+    font-weight: 500;
+  }
+  
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+  }
+  
+  .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+  }
+  
+  .toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .toggle-slider {
+    background-color: var(--primary-color);
+  }
+  
+  input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+  }
+  
+  .logout-btn {
+    background: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .logout-btn:hover {
+    background: #e53e3e;
+  }
+  
+  /* Additional variables */
+  :root {
+    --danger-color: #f56565;
+  }
+  
+  .dark-mode {
+    --danger-color: #fc8181;
+  }

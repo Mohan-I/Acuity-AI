@@ -1,0 +1,94 @@
+/* Allows dropdown to be positioned relative to image */
+.user-dropdown-container {
+    position: relative;
+    display: inline-block; 
+  }
+  
+  .user-avatar {
+    width: 36px; 
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 60px; 
+    right: 0; 
+    background-color: #f9f9f900;
+    backdrop-filter: blur(20px);
+    border: 1px solid #a2a1a19d;
+    color: rgb(141, 141, 141);
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1000;
+    width: 200px; 
+  }
+  
+  .avatar-selection {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 10px;
+  }
+  
+  .avatar-selection img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+  }
+  
+  .bottom {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .bottom-item {
+    display: flex;
+    align-items: center;
+    padding: 4%;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+  }
+  
+  .bottom-item img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+  
+  .bottom-item p {
+    margin: 0;
+  }
+
+  .bottom-item:hover {
+    background-color: var(--sidebar-hover);
+  }
+
+  .item-link{
+    color: rgb(141, 141, 141);
+  }
+
+  .tooltip {
+    z-index:100px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    white-space: nowrap;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    visibility: visible; 
+    transition: opacity 0.3s ease;
+    margin-top: 5px;
+    zoom:90%;
+  }
+  
+  .bottom-item:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }

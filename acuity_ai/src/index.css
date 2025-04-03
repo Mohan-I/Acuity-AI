@@ -1,0 +1,138 @@
+@import "prismjs/themes/prism-tomorrow.css"; /* Dark theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Titillium Web", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#root{
+  min-height: 100vh;
+  display: flex;
+}
+
+/* src/App.css */
+:root {
+  --primary-color: #6d28d9;
+  --primary-light: #8b5cf6;
+  --text-color: #1e293b;
+  --text-light: #64748b;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --border-color: #e2e8f0;
+  --pro-color: #f59e0b;
+  --online-color: #10b981;
+  --offline-color: #ef4444;
+}
+
+.dark-mode {
+  --primary-color: #8b5cf6;
+  --primary-light: #a78bfa;
+  --text-color: #e2e8f0;
+  --text-light: #94a3b8;
+  --bg-color: #1e293b;
+  --card-bg: #334155;
+  --border-color: #475569;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Status Alert */
+.status-alert {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  animation: slideUp 0.3s ease-out;
+}
+
+.status-alert.online {
+  background-color: var(--online-color);
+  color: white;
+}
+
+.status-alert.offline {
+  background-color: var(--offline-color);
+  color: white;
+}
+
+.status-alert button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+@keyframes slideUp {
+  from { transform: translate(-50%, 100%); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal {
+  background: var(--card-bg);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+/* Add more styles for your specific modal content */
