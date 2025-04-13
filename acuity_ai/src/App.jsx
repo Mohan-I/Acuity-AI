@@ -28,18 +28,26 @@ function App() {
     localStorage.setItem('darkMode', JSON.stringify(newMode));
   };
 
+  const [showSidebar, setShowSidebar] = useState(false);
+
   return (
     <div className={`app-wrapper ${darkMode ? 'dark-mode' : ''}`}>
       <Router>
         <div className="app-layout">
           <StatusAlert />
-          <Sidebar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+          <Sidebar 
+          darkMode={darkMode} 
+          toggleDarkMode={toggleDarkMode}
+          showSidebar={showSidebar}
+          setShowSidebar={setShowSidebar} 
+          />
           <div className="main-content">
             <Routes>
-              <Route path="/" element={<Main darkMode={darkMode} />} />
+              <Route path="/" element={<Main darkMode={darkMode} showSidebar={showSidebar} setShowSidebar={setShowSidebar} />} />
               <Route path="/help" element={<HelpFAQ darkMode={darkMode} />} />
               <Route path="/terms" element={<Terms darkMode={darkMode} />} />
               <Route path="/usage" element={<HowToUse darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+              <Route path="/sidebar" element={<Sidebar darkMode={darkMode}  toggleDarkMode={toggleDarkMode} showSidebar={showSidebar} setShowSidebar={setShowSidebar} />} />
             </Routes>
           </div>
         </div>

@@ -53,6 +53,7 @@
     font-size: 0.7rem;
     opacity: 0.7;
     font-weight: normal;
+    color: var(--sidebar-text);
   }
   
   .sidebar.expanded {
@@ -295,7 +296,7 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s;
-    z-index: 10;
+    z-index: 100px;
   }
   
   .clickable:hover .tooltip {
@@ -304,18 +305,23 @@
   
   /* Responsive adjustments */
   @media (max-width: 768px) {
-    .sidebar {
+    .sidebar:not(.expanded) {
       width: 0;
     }
-    
+  
     .sidebar.expanded {
       width: 280px;
     }
-    
+  
     .tooltip {
       display: none;
     }
   }
+
+  .sidebar {
+    transition: transform 0.3s ease, width 0.3s ease;
+  }
+  
   
   @media (min-width: 769px) {
     .sidebar {

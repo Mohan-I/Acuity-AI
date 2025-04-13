@@ -1,4 +1,4 @@
-@import "prismjs/themes/prism-tomorrow.css"; /* Dark theme */
+@import "prismjs/themes/prism-tomorrow.css"; 
 
 @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
 
@@ -16,7 +16,6 @@
   display: flex;
 }
 
-/* src/App.css */
 :root {
   --primary-color: #6d28d9;
   --primary-light: #8b5cf6;
@@ -46,6 +45,23 @@
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
+}
+
+::-webkit-scrollbar {
+  width: 5px; 
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f100; 
+}
+
+::-webkit-scrollbar-thumb { 
+  background-color: #8b5cf6; 
+  border-radius: 5px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #6d28d9;
 }
 
 /* Status Alert */

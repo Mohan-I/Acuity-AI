@@ -23,9 +23,9 @@ const Main = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [showCopyNotification, setShowCopyNotification] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
-    const savedMode = localStorage.getItem('darkMode');
+    const savedMode = localStorage.getItem("darkMode");
     if (savedMode !== null) return JSON.parse(savedMode);
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
   const fileInputRef = useRef(null);
   const resultEndRef = useRef(null);
@@ -36,8 +36,8 @@ const Main = () => {
 
   // Initialize Prism for code highlighting
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      import('prismjs').then(Prism => {
+    if (typeof window !== "undefined") {
+      import("prismjs").then((Prism) => {
         Prism.highlightAll();
       });
     }
@@ -45,19 +45,19 @@ const Main = () => {
 
   // Speech recognition setup
   useEffect(() => {
-    if ('webkitSpeechRecognition' in window) {
+    if ("webkitSpeechRecognition" in window) {
       recognitionRef.current = new window.webkitSpeechRecognition();
       recognitionRef.current.continuous = false;
       recognitionRef.current.interimResults = false;
-      
+
       recognitionRef.current.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
-        setInput(prev => prev + transcript);
+        setInput((prev) => prev + transcript);
         setIsRecording(false);
       };
-      
+
       recognitionRef.current.onerror = (event) => {
-        console.error('Speech recognition error', event.error);
+        console.error("Speech recognition error", event.error);
         setIsRecording(false);
       };
     }
@@ -71,9 +71,12 @@ const Main = () => {
 
   // Dark mode handling
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-    document.documentElement.classList.toggle('dark-mode', darkMode);
-    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+    document.documentElement.classList.toggle("dark-mode", darkMode);
+    document.documentElement.setAttribute(
+      "data-theme",
+      darkMode ? "dark" : "light"
+    );
   }, [darkMode]);
 
   const handleImageUpload = (e) => {
@@ -90,13 +93,13 @@ const Main = () => {
   const removeImage = () => {
     setImagePreview(null);
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
   const toggleSpeechRecognition = () => {
     if (!recognitionRef.current) return;
-    
+
     if (isRecording) {
       recognitionRef.current.stop();
       setIsRecording(false);
@@ -108,24 +111,24 @@ const Main = () => {
 
   const handleSend = () => {
     if (imagePreview) {
-      const message = input ? `${input} (with attached image)` : "Analyze the attached image";
-      onSent(message);
+      const message = input ? input : "Analyze the attached image";
+      onSent(message, imagePreview); // Pass image data to context
       setImagePreview(null);
       if (fileInputRef.current) {
-        fileInputRef.current.value = '';
+        fileInputRef.current.value = "";
       }
     } else {
-      onSent();
+      onSent(input);
     }
   };
 
   const copyToClipboard = () => {
     if (!resultData) return;
-    
-    const temp = document.createElement('div');
+
+    const temp = document.createElement("div");
     temp.innerHTML = resultData;
-    const textToCopy = temp.textContent || temp.innerText || '';
-    
+    const textToCopy = temp.textContent || temp.innerText || "";
+
     navigator.clipboard.writeText(textToCopy).then(() => {
       setShowCopyNotification(true);
       setTimeout(() => setShowCopyNotification(false), 2000);
@@ -140,29 +143,29 @@ const Main = () => {
 
   const renderResultContent = () => {
     if (!resultData) return null;
-    
+
     const parts = resultData.split(/(```[\s\S]*?```)/g);
-    
+
     return parts.map((part, index) => {
-      if (part.startsWith('```')) {
+      if (part.startsWith("```")) {
         const languageMatch = part.match(/^```(\w+)/);
-        const language = languageMatch ? languageMatch[1] : 'javascript';
-        const code = part.replace(/^```[\w]*\n/, '').replace(/```$/, '');
-        
+        const language = languageMatch ? languageMatch[1] : "javascript";
+        const code = part.replace(/^```[\w]*\n/, "").replace(/```$/, "");
+
         return (
-          <CodeSnippet 
-    code={code} 
-    language={language} 
-    explanation={explanation} 
-    darkMode={true}
-  />
+          <CodeSnippet
+            code={code}
+            language={language}
+            explanation={explanation}
+            darkMode={true}
+          />
         );
       }
       return (
-        <div 
+        <div
           key={`text-${index}`}
           className="markdown-content"
-          dangerouslySetInnerHTML={{ __html: part }} 
+          dangerouslySetInnerHTML={{ __html: part }}
         />
       );
     });
@@ -175,7 +178,11 @@ const Main = () => {
       { name: "Math", icon: assets.compass_icon, color: "#3D3B40" },
       { name: "Education", icon: assets.bulb_icon, color: "#16C47F" },
       { name: "Language", icon: assets.message_icon, color: "#261FB3" },
-      { name: "General Knowledge", icon: assets.general_icon, color: "#73EC8B" }
+      {
+        name: "General Knowledge",
+        icon: assets.general_icon,
+        color: "#73EC8B",
+      },
     ];
 
     const programmingPrompts = [
@@ -183,7 +190,7 @@ const Main = () => {
       "How do I implement a binary search algorithm in Python?",
       "What are React hooks and when should I use them?",
       "Show me an example of async/await in TypeScript",
-      "How can I optimize SQL queries for better performance?"
+      "How can I optimize SQL queries for better performance?",
     ];
 
     const mathPrompts = [
@@ -191,7 +198,7 @@ const Main = () => {
       "Explain the Pythagorean theorem with an example",
       "What's the derivative of sin(x)cos(x)?",
       "How do I calculate the area of a circle with diameter 10cm?",
-      "Explain matrix multiplication with a 2x2 example"
+      "Explain matrix multiplication with a 2x2 example",
     ];
 
     const educationPrompts = [
@@ -199,7 +206,7 @@ const Main = () => {
       "Explain Bloom's taxonomy of learning objectives",
       "How does spaced repetition improve memory retention?",
       "What are the benefits of project-based learning?",
-      "Compare and contrast behaviorism and cognitivism"
+      "Compare and contrast behaviorism and cognitivism",
     ];
 
     const languagePrompts = [
@@ -207,7 +214,7 @@ const Main = () => {
       "Explain the subjunctive mood in English grammar",
       "Give me 5 common French phrases for travelers",
       "How do I use the present perfect tense correctly?",
-      "What are some tips for improving English pronunciation?"
+      "What are some tips for improving English pronunciation?",
     ];
 
     const generalPrompts = [
@@ -215,15 +222,18 @@ const Main = () => {
       "Explain how blockchain technology works",
       "What's the history of the Roman Empire?",
       "How do I start investing in the stock market?",
-      "What are some effective time management techniques?"
+      "What are some effective time management techniques?",
     ];
 
     const allPrompts = [
-      ...programmingPrompts.map(p => ({ prompt: p, category: categories[0] })),
-      ...mathPrompts.map(p => ({ prompt: p, category: categories[1] })),
-      ...educationPrompts.map(p => ({ prompt: p, category: categories[2] })),
-      ...languagePrompts.map(p => ({ prompt: p, category: categories[3] })),
-      ...generalPrompts.map(p => ({ prompt: p, category: categories[4] }))
+      ...programmingPrompts.map((p) => ({
+        prompt: p,
+        category: categories[0],
+      })),
+      ...mathPrompts.map((p) => ({ prompt: p, category: categories[1] })),
+      ...educationPrompts.map((p) => ({ prompt: p, category: categories[2] })),
+      ...languagePrompts.map((p) => ({ prompt: p, category: categories[3] })),
+      ...generalPrompts.map((p) => ({ prompt: p, category: categories[4] })),
     ];
 
     // Shuffle array and pick first 6
@@ -234,7 +244,7 @@ const Main = () => {
         prompt: item.prompt,
         icon: item.category.icon,
         category: item.category.name,
-        color: item.category.color
+        color: item.category.color,
       }));
   };
 
@@ -251,18 +261,18 @@ const Main = () => {
     // Check if response contains code blocks
     const codeBlockRegex = /```(\w*)([\s\S]*?)```/;
     const match = response.match(codeBlockRegex);
-    
+
     if (match) {
-      const language = match[1] || 'javascript';
+      const language = match[1] || "javascript";
       const code = match[2].trim();
-      const explanation = response.replace(codeBlockRegex, '').trim();
+      const explanation = response.replace(codeBlockRegex, "").trim();
       return { code, language, explanation };
     }
-    
+
     // If no code blocks found, treat entire response as explanation
-    return { code: '', language: 'text', explanation: response };
+    return { code: "", language: "text", explanation: response };
   };
-  
+
   // Usage example:
   const response = `Formatted Response: \`\`\`html
   <!DOCTYPE html>
@@ -280,14 +290,14 @@ const Main = () => {
   <b>Explanation:</b>
   
   * <b>\`<!DOCTYPE html>\`</b>: Tells the browser...`;
-  
+
   const { code, language, explanation } = parseResponse(response);
 
   return (
-    <div className={`main ${darkMode ? 'dark-mode' : ''}`}>
+    <div className={`main ${darkMode ? "dark-mode" : ""}`}>
       {/* Mobile sidebar toggle */}
       {isMobile && (
-        <button 
+        <button
           className="mobile-menu-button"
           onClick={() => setShowSidebar(!showSidebar)}
         >
@@ -299,8 +309,8 @@ const Main = () => {
         <p className="app-name">Acuity AI</p>
         <div className="nav-right">
           {showResult && (
-            <button 
-              className="clear-btn" 
+            <button
+              className="clear-btn"
               onClick={clearConversation}
               aria-label="New chat"
             >
@@ -308,14 +318,16 @@ const Main = () => {
               {!isMobile && <span>New Chat</span>}
             </button>
           )}
-          <button 
-            className="theme-toggle" 
+          <button
+            className="theme-toggle"
             onClick={() => setDarkMode(!darkMode)}
-            aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+            aria-label={
+              darkMode ? "Switch to light mode" : "Switch to dark mode"
+            }
           >
-            <img 
-              src={darkMode ? assets.sun_icon : assets.moon_icon} 
-              alt={darkMode ? "Light mode" : "Dark mode"} 
+            <img
+              src={darkMode ? assets.sun_icon : assets.moon_icon}
+              alt={darkMode ? "Light mode" : "Dark mode"}
             />
           </button>
           <UserProfile />
@@ -333,18 +345,18 @@ const Main = () => {
             </div>
             <div className="cards">
               {promptCards.map((card, index) => (
-                <div 
+                <div
                   key={index}
                   className="card"
                   onClick={() => setInput(card.prompt)}
-                  style={{ '--card-color': card.color }}
+                  style={{ "--card-color": card.color }}
                 >
                   <p>{card.prompt}</p>
                   <div className="card-footer">
                     <span className="card-category">{card.category}</span>
-                    <img 
-                      src={card.icon} 
-                      alt={card.category} 
+                    <img
+                      src={card.icon}
+                      alt={card.category}
                       style={{ backgroundColor: card.color }}
                     />
                   </div>
@@ -359,21 +371,25 @@ const Main = () => {
               <p>{recentPrompt}</p>
             </div>
             <div className="result-data">
-              <img src={assets.gemini_icon} alt="Acuity AI" className="ai-avatar" />
+              <img
+                src={assets.gemini_icon}
+                alt="Acuity AI"
+                className="ai-avatar"
+              />
               {loading ? (
                 <div className="loader">
                   <div className="loading-dots">
-                    <span style={{ '--delay': '0s' }}></span>
-                    <span style={{ '--delay': '0.2s' }}></span>
-                    <span style={{ '--delay': '0.4s' }}></span>
+                    <span style={{ "--delay": "0s" }}></span>
+                    <span style={{ "--delay": "0.2s" }}></span>
+                    <span style={{ "--delay": "0.4s" }}></span>
                   </div>
                   <p className="loading-text">Acuity is thinking...</p>
                 </div>
               ) : (
                 <div className="result-content">
                   {renderResultContent()}
-                  <button 
-                    className="copy-btn" 
+                  <button
+                    className="copy-btn"
                     onClick={copyToClipboard}
                     aria-label="Copy to clipboard"
                   >
@@ -392,38 +408,42 @@ const Main = () => {
         )}
 
         <div className="main-bottom">
+          <div className="search-box-container">
           {imagePreview && (
             <div className="image-preview">
               <img src={imagePreview} alt="Preview" />
-              <button 
-                onClick={removeImage} 
-                className="remove-image-btn"
-                aria-label="Remove image"
-              >
+              <button onClick={removeImage} className="remove-image-btn">
                 ×
               </button>
             </div>
           )}
-          <div className="search-box-container">
-            <div className={`search-box ${input || imagePreview ? 'has-input' : ''}`}>
+            <div
+              className={`search-box ${input || imagePreview ? "has-input" : ""}`}
+            >
               <input
                 onChange={(e) => setInput(e.target.value)}
                 value={input}
                 type="text"
                 placeholder="Message Acuity AI..."
-                onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
+                onKeyDown={(e) =>
+                  e.key === "Enter" && !e.shiftKey && handleSend()
+                }
               />
               <div className="search-actions">
                 {(input || imagePreview) && (
-                  <button 
-                    className="clear-input" 
+                  <button
+                    className="clear-input"
                     onClick={() => {
-                      setInput('');
+                      setInput("");
                       removeImage();
                     }}
                     aria-label="Clear input"
                   >
-                    <img src={assets.clear_icon} className="clear-icon" alt="Clear" />
+                    <img
+                      src={assets.clear_icon}
+                      className="clear-icon"
+                      alt="Clear"
+                    />
                   </button>
                 )}
                 <input
@@ -431,26 +451,28 @@ const Main = () => {
                   accept="image/*"
                   onChange={handleImageUpload}
                   ref={fileInputRef}
-                  style={{ display: 'none' }}
+                  style={{ display: "none" }}
                   id="image-upload"
                 />
-                <label 
-                  htmlFor="image-upload" 
+                <label
+                  htmlFor="image-upload"
                   className="icon-btn"
                   aria-label="Upload image"
                 >
                   <img src={assets.gallery_icon} alt="Upload" />
                 </label>
-                <button 
-                  className={`icon-btn mic-btn ${isRecording ? 'recording' : ''}`}
+                <button
+                  className={`icon-btn mic-btn ${isRecording ? "recording" : ""}`}
                   onClick={toggleSpeechRecognition}
-                  aria-label={isRecording ? "Stop recording" : "Start recording"}
+                  aria-label={
+                    isRecording ? "Stop recording" : "Start recording"
+                  }
                 >
                   <img src={assets.mic_icon} alt="Microphone" />
                   {isRecording && <span className="pulse-ring"></span>}
                 </button>
-                <button 
-                  className="icon-btn send-btn" 
+                <button
+                  className="icon-btn send-btn"
                   onClick={handleSend}
                   disabled={!input.trim() && !imagePreview}
                   aria-label="Send message"
